@@ -3,6 +3,7 @@ class Chandrayaan
     @commands = ['f', 'r', 'u', 'b', 'l']
     @x,@y,@z = 0,0,0
     @initial_direction = 'N'
+    @previous_direction = nil
   end
   def spacecraft_navigation
     @commands.each do |command|
@@ -11,138 +12,115 @@ class Chandrayaan
     return @x,@y,@z,@initial_direction
   end
 
-  def find_next_coordinates(x,y,z,direction,operation)
-    if direction == 'N'
-      if operation == "f"
-        y += 1
-      elsif operation == 'b'
-        y -= 1
-      elsif operation == 'l'
-        direction = 'W'
-      elsif operation == 'r'
-        direction = 'E'
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'N' if direction != 'N'
-    elsif direction == 'S'
-      if operation == "f"
-        y += 1
-      elsif operation == 'b'
-        y -= 1
-      elsif operation == 'l'
-        direction = 'E'
-      elsif operation == 'r'
-        direction = 'W'
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'S' if direction != 'S'
-    elsif direction == 'E'
-      if operation == "f"
-        x += 1
-      elsif operation == 'b'
-        x -= 1
-      elsif operation == 'l'
-        direction = 'N'
-      elsif operation == 'r'
-        direction = 'S'
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'E' if direction != 'E'
-    elsif direction == 'W'
-      if operation == "f"
-        x += 1
-      elsif operation == 'b'
-        x -= 1
-      elsif operation == 'l'
-        direction = 'S'
-      elsif operation == 'r'
-        direction = 'N'
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'W' if direction != 'W'
-    elsif direction == 'U'
-      if operation == "f"
-        z += 1
-      elsif operation == 'b'
-        z -= 1
-      elsif operation == 'l'
-        if @previous_direction == 'E'
-          direction = 'N'
-        elsif @previous_direction == 'W'
-          direction = 'S'
-        elsif @previous_direction == 'N'
-          direction = 'W'
-        elsif @previous_direction == 'S'
-          direction = 'E'
-        else
-          direction = 'N' #default direction
-        end
-      elsif operation == 'r'
-        if @previous_direction == 'E'
-          direction = 'S'
-        elsif @previous_direction == 'W'
-          direction = 'N'
-        elsif @previous_direction == 'N'
-          direction = 'E'
-        elsif @previous_direction == 'S'
-          direction = 'W'
-        else
-          direction = 'N'
-        end
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'U' if direction != 'U'
-    elsif direction == 'D'
-      if operation == "f"
-        z += 1
-      elsif operation == 'b'
-        z -= 1
-      elsif operation == 'l'
-        if @previous_direction == 'E'
-          direction = 'N'
-        elsif @previous_direction == 'W'
-          direction = 'S'
-        elsif @previous_direction == 'N'
-          direction = 'W'
-        elsif @previous_direction == 'S'
-          direction = 'E'
-        else
-          direction = 'N' #default direction
-        end
-      elsif operation == 'r'
-        if @previous_direction == 'E'
-          direction = 'S'
-        elsif @previous_direction == 'W'
-          direction = 'N'
-        elsif @previous_direction == 'N'
-          direction = 'E'
-        elsif @previous_direction == 'S'
-          direction = 'W'
-        else
-          direction = 'N'
-        end
-      elsif operation == 'u'
-        direction = 'U'
-      elsif operation == 'd'
-        direction = 'D'
-      end
-      @previous_direction = 'D' if direction != 'D'
+  def find_next_coordinates(x, y, z, direction, operation)
+    new_direction = direction
+    case operation
+    when "f"
+      x, y, z = move_forward(x, y, z, direction)
+    when "b"
+      x, y, z = move_backward(x, y, z, direction)
+    when "l"
+      direction = turn_left(direction)
+    when "r"
+      direction = turn_right(direction)
+    when "u", "d"
+      direction = change_altitude(operation)
     end
-    return x,y,z,direction
+    @previous_direction = new_direction unless new_direction == direction
+    return x, y, z, direction
+  end
+
+  def move_forward(x, y, z, direction)
+    case direction
+    when 'N', 'S'
+      y += 1
+    when 'E', 'W'
+      x += 1
+    when 'U', 'D'
+      z += 1
+    end
+    return x, y, z
+  end
+
+  def move_backward(x, y, z, direction)
+    case direction
+    when 'N', 'S'
+      y -= 1
+    when 'E', 'W'
+      x -= 1
+    when 'U', 'D'
+      z -= 1
+    end
+    return x, y, z
+  end
+
+  def turn_left(direction)
+    case direction
+    when 'N'
+      'W'
+    when 'S'
+      'E'
+    when 'E'
+      'N'
+    when 'W'
+      'S'
+    when 'U'
+      up_down_turn_left
+    when 'D'
+      up_down_turn_left
+    else direction
+    end
+  end
+
+  def up_down_turn_left
+    case @previous_direction
+    when 'E'
+      'N'
+    when 'W'
+      'S'
+    when 'N'
+      'W'
+    when 'S'
+      'E'
+    else
+      'N' #default direction
+    end
+  end
+
+  def turn_right(direction)
+    case direction
+    when 'N'
+      'E'
+    when 'S'
+      'W'
+    when 'E'
+      'S'
+    when 'W'
+      'N'
+    when 'U'
+      up_down_turn_right
+    when 'D'
+      up_down_turn_right
+    else direction
+    end
+  end
+
+  def up_down_turn_right
+    case @previous_direction
+    when 'E'
+      'S'
+    when 'W'
+      'N'
+    when 'N'
+      'E'
+    when 'S'
+      'W'
+    else
+      'N' #default direction
+    end
+  end
+
+  def change_altitude(operation)
+    return operation == 'u' ? 'U' : 'D'
   end
 end
