@@ -40,6 +40,36 @@ class Chandrayaan
       elsif operation == 'd'
         direction = 'D'
       end
+
+    elsif direction == 'E'
+      if operation == "f"
+        x += 1
+      elsif operation == 'b'
+        x -= 1
+      elsif operation == 'l'
+        direction = 'N'
+      elsif operation == 'r'
+        direction = 'S'
+      elsif operation == 'u'
+        direction = 'U'
+      elsif operation == 'd'
+        direction = 'D'
+      end
+
+    elsif direction == 'W'
+      if operation == "f"
+        x += 1
+      elsif operation == 'b'
+        x -= 1
+      elsif operation == 'l'
+        direction = 'S'
+      elsif operation == 'r'
+        direction = 'N'
+      elsif operation == 'u'
+        direction = 'U'
+      elsif operation == 'd'
+        direction = 'D'
+      end
     end
 
     return x,y,z,direction
