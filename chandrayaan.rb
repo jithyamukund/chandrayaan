@@ -1,16 +1,17 @@
 class Chandrayaan
-  def initialize(commands,starting_position,initial_direction)
-    @commands = commands
-    @x,@y,@z = starting_position
-    @initial_direction = initial_direction
+  def initialize()
+    @commands = ['f', 'r', 'u', 'b', 'l']
+    @x,@y,@z = 0,0,0
+    @initial_direction = 'N'
   end
   def spacecraft_navigation
     @commands.each do |command|
-      find_next_coordinates(@x,@y,@z,@initial_direction,command)
+      @x,@y,@z,@initial_direction = find_next_coordinates(@x,@y,@z,@initial_direction,command)
     end
+    return @x,@y,@z,@initial_direction
   end
 
-  def self.find_next_coordinates(x,y,z,direction,operation)
+  def find_next_coordinates(x,y,z,direction,operation)
     if direction == 'N'
       if operation == "f"
         y += 1
