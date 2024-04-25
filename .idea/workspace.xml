@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="669983bc-f045-44a1-864c-8397920de143" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../SplitWise/.idea/SplitWise.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice/.idea/practice.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../presto/.idea/presto.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chandrayaan.rb" beforeDir="false" afterPath="$PROJECT_DIR$/chandrayaan.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/chandrayaan_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/chandrayaan_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +31,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/mavenhive/jithya/MYprojects/chandrayaan",
     "node.js.detected.package.eslint": "true",
@@ -50,7 +53,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714056172296</updated>
       <workItem from="1714056173536" duration="73000" />
-      <workItem from="1714056264504" duration="3739000" />
+      <workItem from="1714056264504" duration="4454000" />
     </task>
     <servers />
   </component>

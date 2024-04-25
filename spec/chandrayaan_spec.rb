@@ -18,5 +18,21 @@ RSpec.describe Chandrayaan do
       expect(z).to eq(0)
       expect(direction).to eq('N')
     end
+
+    it "should return new coordinates 0,0,0 and direction E if given initial coordinates 0,0,0,direction N and operation 'r'" do
+      x,y,z,direction = Chandrayaan.find_next_coordinates(0,0,0,'N',"r")
+      expect(x).to eq(0)
+      expect(y).to eq(0)
+      expect(z).to eq(0)
+      expect(direction).to eq('E')
+    end
+
+    it "should return new coordinates 1,0,0 and direction W if given initial coordinates 1,0,0,direction N and operation 'l'" do
+      x,y,z,direction = Chandrayaan.find_next_coordinates(1,0,0,'N',"l")
+      expect(x).to eq(1)
+      expect(y).to eq(0)
+      expect(z).to eq(0)
+      expect(direction).to eq('W')
+    end
   end
 end

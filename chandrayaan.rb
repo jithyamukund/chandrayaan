@@ -16,6 +16,14 @@ class Chandrayaan
         y += 1
       elsif operation == 'b'
         y -= 1
+      elsif operation == 'l'
+        direction = 'W'
+      elsif operation == 'r'
+        direction = 'E'
+      elsif operation == 'u'
+        direction = 'U'
+      elsif operation == 'd'
+        direction = 'D'
       end
     end
 
